@@ -5,25 +5,54 @@
     <title>Test Online Version</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script type = "text/javascript">
+      $(document).ready(function() {
+        // on submit, grab the question, send it via ajax, display response
+        $('#question-form').submit(function(e) {
+          var question = $('#question').val();
+
+          $.ajax({
+              method: "GET",
+              url: "https://kkivonu86k.execute-api.us-west-2.amazonaws.com/default/smilePredictLevel?question=" + question,
+          }).done(function(response) {
+              var dt = $('<dt></dt>').text(question);
+              var dd = $('<dd></dd>').text(JSON.stringify(response)); 
+              $('#question-log dl').prepend(dt, dd);
+          });
+
+          $('#question').val('');
+          e.preventDefault(); 
+        });
+      });
+    </script>
   </head>
 
   <body class="container">
   
-  <form action="https://kkivonu86k.execute-api.us-west-2.amazonaws.com/default/smilePredictLevel" method="get">
-    <h2 class="mt-5">Enter your question:</h2>
-    <input type="text" size="50" name="question" />
+  <form id="question-form" action="https://kkivonu86k.execute-api.us-west-2.amazonaws.com/default/smilePredictLevel" method="get">
+    <h2 class="mt-5">Try your question:</h2>
+    <input type="text" size="50" name="question" id="question" />
     <input type="submit" value="Submit" />
   </form>
 
-  <div>
-    <h2 class="mt-5">Questions to try:</h2>
-    <pre>
-What is the name of the president of Canada
-How tall is the empire state building
-How is infrared light different from ultraviolet light
-If infrared light is removed from Sun light, what would happen to Earth
-If the President Trump never meets with Kim Jong Un ever again, what would be the consequence on world peace
-    </pre>
-</div>
+  <div class="mt-5" id="question-log">
+    <dl>
+      <dt>What is the name of the president of Canada</dt>
+      <dd>{"prediction": 1, "justification": {"what": 1, "is": 1}}</dd>
+      <dt>How tall is the empire state building</dt>
+      <dd>{"prediction": 3, "justification": {"how": 3, "is": 1}}</dd>
+      <dt>How is infrared light different from ultraviolet light</dt>
+      <dd>{"prediction": 3, "justification": {"how": 3, "is": 1, "from": 2}}</dd>
+      <dt>If infrared light is removed from Sun light, what would happen to Earth
+      </dt>
+      <dd>{"prediction": 5, "justification": {"if": 5, "is": 1, "from": 2, "what": 1, "would": 4}}</dd>
+      <dt>If the President Trump never meets with Kim Jong Un ever again, what would be the consequence on world peace
+      </dt>
+      <dd>{"prediction": 5, "justification": {"if": 5, "with": 2, "what": 1, "would": 4}}</dd>
+    </dl>
+  </div>
+
   </body>
 </html>
