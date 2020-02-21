@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Test Question Algorithm</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -33,11 +35,11 @@
   
   <form id="question-form" action="https://kkivonu86k.execute-api.us-west-2.amazonaws.com/default/smilePredictLevel" method="get">
     <h2 class="mt-5">Try your question:</h2>
-    <input type="text" size="50" name="question" id="question" />
-    <input type="submit" value="Submit" />
+    <input type="text" class="form-control" name="question" id="question" />
+    <button type="submit" class="btn btn-primary mt-2">Evaluate</button>
   </form>
 
-  <div class="mt-5" id="question-log">
+  <div class="mt-4" id="question-log">
     <dl>
       <dt>What is the name of the president of Canada</dt>
       <dd>{"prediction": 1, "justification": {"what": 1, "is": 1}}</dd>
